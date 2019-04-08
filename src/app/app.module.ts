@@ -6,17 +6,19 @@ import {PageNotFoundComponent} from './home/page-not-found.component';
 import {MenuComponent} from './home/menu.component';
 import {WelcomeComponent} from './home/welcome.component';
 import {ShellComponent} from './home/shell.component';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
+    ShellComponent,
     MenuComponent,
     WelcomeComponent,
-    ShellComponent
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
