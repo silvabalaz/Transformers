@@ -1,0 +1,30 @@
+<div class="card" *ngIf="transformer">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+    <form novalidate (ngSubmit)="saveTransformer()" [formGroup]="transformerForm">
+      <fieldset>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="transformerNameId">Transformer Name</label>
+
+          <div class="col-md-9">
+            <input [ngClass]="{'is-invalid': displayMessage.name }"
+                   class="form-control"
+                   id="transformerNameId"
+                   type="text"
+                   placeholder="Name (required)"
+                   formControlName="transformerName"
+                   (blur)="blur()" />
+            <span class="invalid-feedback" *ngIf="displayMessage.name">
+              {{displayMessage.name}}
+            </span>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  Error: {{ errorMessage }}
+</div>
