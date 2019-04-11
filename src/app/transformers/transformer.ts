@@ -1,4 +1,4 @@
-export interface Transformer {
+export interface Trans {
   id?: number;
   name?: string;
   vehicleGroup?: string;
