@@ -9,10 +9,8 @@ import {TransformerService} from '../transformer.service';
   styleUrls: ['./transformer-list.component.css']
 })
 export class TransformerListComponent implements OnInit, OnDestroy {
-  pageTitle = 'Transformers';
+  pageTitle = 'Transformers list';
   errorMessage: string;
-
-  displayId: boolean;
 
   transformers: Trans[];
 
@@ -23,25 +21,23 @@ export class TransformerListComponent implements OnInit, OnDestroy {
   constructor(private transformerService: TransformerService) { }
 
   ngOnInit(): void {
+    console.log('OnInit transformer-list component');
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
       selectedTransformer => this.selectedTransformer = selectedTransformer
     );
 
-    this.transformerService.getTransformer().subscribe(
+    this.transformerService.getTransformers().subscribe(
       (transformers: Trans[]) => this.transformers = transformers,
       (err: any) => this.errorMessage = err.error
     );
   }
 
   ngOnDestroy(): void {
+    console.log('OnDestroy transformer-list component');
     this.sub.unsubscribe();
   }
-
-  checkChanged(value: boolean): void {
-    this.displayId = value;
-  }
-
   newTransformer(): void {
+    console.log('newTransformer transformer-list component');
     this.transformerService.changeSelectedTransformer(this.transformerService.newTransformer());
   }
 

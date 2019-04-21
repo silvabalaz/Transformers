@@ -9,22 +9,15 @@
           <label class="col-md-3 col-form-label" for="transformerNameId">Transformer Name</label>
 
           <div class="col-md-9">
-            <input [ngClass]="{'is-invalid': displayMessage.name }"
+            <input required
                    class="form-control"
                    id="transformerNameId"
                    type="text"
                    placeholder="Name (required)"
-                   formControlName="transformerName"
-                   (blur)="blur()" />
-            <span class="invalid-feedback" *ngIf="displayMessage.name">
-              {{displayMessage.name}}
-            </span>
+                   formControlName="transformerName"/>
           </div>
         </div>
       </fieldset>
     </form>
   </div>
-</div>
-<div *ngIf="errorMessage" class="alert alert-danger">
-  Error: {{ errorMessage }}
 </div>

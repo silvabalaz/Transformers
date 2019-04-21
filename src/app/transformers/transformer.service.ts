@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {tap} from 'rxjs/internal/operators/tap';
 import {catchError} from 'rxjs/internal/operators/catchError';
@@ -17,13 +17,15 @@ export class TransformerService {
   private selectedTransformerSource = new BehaviorSubject<Trans| null>(null);
   selectedTransformerChanges$ = this.selectedTransformerSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { console.log('constructor in service'); }
 
   changeSelectedTransformer(selectedTransformer: Trans | null): void {
+    console.log('changeSelectedTransformer');
     this.selectedTransformerSource.next(selectedTransformer);
+    console.log('changeSelectedTransformer' + this.selectedTransformerSource.next(selectedTransformer) );
   }
 
-  getTransformer(): Observable<Trans[]> {
+  getTransformers(): Observable<Trans[]> {
     if (this.transformers) {
       return of(this.transformers);
     }
@@ -37,13 +39,19 @@ export class TransformerService {
 
   // Return an initialized transformer
   newTransformer(): Trans {
+    console.log('newTransformer');
     return {
       id: 0,
-      name: ''
+      name: 'New',
+      vehicleGroup: '',
+      vehicleType: '',
+      vehicleModel: '',
+      gear: [],
+      status: ''
     };
   }
-
   createTransformer(transformer: Trans): Observable<Trans> {
+    console.log('create Transformer');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     transformer.id = null;
     return this.http.post<Trans>(this.transformersUrl, transformer, { headers: headers })
@@ -95,3 +103,4 @@ export class TransformerService {
   }
 
 }
+

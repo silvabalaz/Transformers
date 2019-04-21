@@ -8,5 +8,6 @@ export class TransformerShellComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  console.log('InInit shell transformer');
   }
 }
