@@ -13,7 +13,6 @@ import {map} from 'rxjs/operators';
 export class TransformerService {
   private transformersUrl = '/api/transformers';
   private transformers: Trans[];
-
   private selectedTransformerSource = new BehaviorSubject<Trans| null>(null);
   selectedTransformerChanges$ = this.selectedTransformerSource.asObservable();
 

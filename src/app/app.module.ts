@@ -7,6 +7,9 @@ import {MenuComponent} from './home/menu.component';
 import {WelcomeComponent} from './home/welcome.component';
 import {ShellComponent} from './home/shell.component';
 import {AppRoutingModule} from './app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
+import {TransformerData} from './transformers/transformer-data';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
 @NgModule({
@@ -19,7 +22,9 @@ import {AppRoutingModule} from './app-routing.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(TransformerData),
   ],
   providers: [],
   bootstrap: [AppComponent]
