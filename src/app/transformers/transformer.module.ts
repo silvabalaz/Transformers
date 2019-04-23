@@ -4,9 +4,12 @@ import {NgModule} from '@angular/core';
 import {TransformerListComponent} from './transformer-list/transformer-list.component';
 import {TransformerShellComponent} from './transformer-shell/transformer-shell.component';
 import {SharedModule} from '../shared/shared.module';
+import {TransformerEditShellComponent} from './transformer-edit-shell/transformer-edit-shell.component';
+import {TransformerAddComponent} from './transformer-add/transformer-add.component';
 
 const transformerRoutes: Routes = [
-  { path: '', component: TransformerShellComponent }
+  { path: '', component: TransformerShellComponent },
+  { path: 'edit', component: TransformerEditShellComponent}
 ];
 
 @NgModule({
@@ -17,6 +20,8 @@ const transformerRoutes: Routes = [
   declarations: [
     TransformerShellComponent,
     TransformerListComponent,
+    TransformerAddComponent,
+    TransformerEditShellComponent,
     TransformerEditComponent
   ]
 })

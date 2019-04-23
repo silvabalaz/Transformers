@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Trans} from '../transformer';
 import {Subscription} from 'rxjs';
 import {TransformerService} from '../transformer.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-pm-transformer-list',
@@ -13,15 +14,15 @@ export class TransformerListComponent implements OnInit, OnDestroy {
   errorMessage: string;
 
   transformers: Trans[];
-
+  transformer: Trans;
   // Used to highlight the selected transformer in the list
   selectedTransformer: Trans | null;
   sub: Subscription;
 
-  constructor(private transformerService: TransformerService) { }
+  constructor(private fb: FormBuilder,
+              private transformerService: TransformerService) { }
 
   ngOnInit(): void {
-    console.log('OnInit transformer-list component');
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
       selectedTransformer => this.selectedTransformer = selectedTransformer
     );
