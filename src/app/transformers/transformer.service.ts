@@ -45,7 +45,7 @@ export class TransformerService {
       vehicleGroup: '',
       vehicleType: '',
       vehicleModel: '',
-      gear: [],
+      gear: [''],
       status: ''
     };
   }

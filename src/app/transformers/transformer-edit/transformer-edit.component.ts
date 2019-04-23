@@ -11,7 +11,7 @@ import {TransformerService} from '../transformer.service';
 })
 export class TransformerEditComponent implements OnInit, OnDestroy {
   pageTitle = 'Transformer Edit';
-  errorMessage = '';
+  errorMessage: string;
   transformerForm: FormGroup;
 
   transformer: Trans | null;
@@ -66,12 +66,12 @@ export class TransformerEditComponent implements OnInit, OnDestroy {
       });
     }
   }
-/*
+
   cancelEdit(): void {
-    // Redisplay the currently selected product
+    // Redisplay the currently selected transformer
     this.displayTransformer(this.transformer);
   }
-*/
+
   saveTransformer(): void {
     if (this.transformerForm.valid) {
       if (this.transformerForm.dirty) {
@@ -79,8 +79,6 @@ export class TransformerEditComponent implements OnInit, OnDestroy {
         // Then copy over the values from the form
         // This ensures values not on the form, such as the Id, are retained
         const p = { ...this.transformer, ...this.transformerForm.value };
-        console.log('p u save product od product edit' + p);
-        console.log('productForm' + this.transformerForm);
         if (p.id === 0) {
           this.transformerService.createTransformer(p).subscribe(
             transformer => this.transformerService.changeSelectedTransformer(transformer),
