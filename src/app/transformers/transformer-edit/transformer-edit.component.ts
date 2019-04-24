@@ -3,13 +3,14 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Trans} from '../transformer';
 import {TransformerService} from '../transformer.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-pm-transformer-edit',
+  /*selector: 'app-pm-transformer-edit',*/
   templateUrl: './transformer-edit.component.html',
   styleUrls: ['./transformer-edit.component.css']
 })
-export class TransformerEditComponent implements OnInit, OnDestroy {
+export class TransformerEditComponent implements OnInit {
   pageTitle = 'Transformer Edit';
   errorMessage: string;
   transformerForm: FormGroup;
@@ -18,7 +19,10 @@ export class TransformerEditComponent implements OnInit, OnDestroy {
   sub: Subscription;
 
   constructor(private fb: FormBuilder,
-              private transformerService: TransformerService) {
+              private transformerService: TransformerService,
+              private route: ActivatedRoute,
+              private router: Router
+              ) {
 
   }
   ngOnInit(): void {
@@ -30,16 +34,12 @@ export class TransformerEditComponent implements OnInit, OnDestroy {
       gear: [''],
       status: ''
     });
-
-    this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
-      selectedTransformer => this.displayTransformer(selectedTransformer)
-    );
-
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.pageTitle += ': ${id}';
   }
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+  onBack(): void {
+    this.router.navigate(['/transformers']);
   }
-
    displayTransformer(transformer: Trans): void {
     // Set the local transformer property
     this.transformer = transformer;

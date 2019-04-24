@@ -9,7 +9,7 @@ import {TransformerAddComponent} from './transformer-add/transformer-add.compone
 
 const transformerRoutes: Routes = [
   { path: '', component: TransformerShellComponent },
-  { path: 'edit', component: TransformerEditShellComponent}
+  { path: ':id', component: TransformerEditComponent }
 ];
 
 @NgModule({

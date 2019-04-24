@@ -42,6 +42,11 @@ export class TransformerListComponent implements OnInit, OnDestroy {
     this.transformerService.changeSelectedTransformer(this.transformerService.newTransformer());
   }
 
+/*  editTransformer(transformer: Trans): void {
+    console.log('newTransformer transformer-list component');
+    this.transformerService.changeSelectedTransformer(this.transformerService.updateTransformer);
+  }*/
+
   transformerSelected(transformer: Trans): void {
     this.transformerService.changeSelectedTransformer(transformer);
   }

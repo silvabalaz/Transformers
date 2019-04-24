@@ -15,7 +15,6 @@ export class TransformerAddComponent implements OnInit, OnDestroy {
   transformerForm: FormGroup;
 
   transformer: Trans | null;
-  selectedTransformer: Trans | null;
   sub: Subscription;
 
   constructor(private fb: FormBuilder,
@@ -33,7 +32,7 @@ export class TransformerAddComponent implements OnInit, OnDestroy {
     });
 
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
-      selectedTransformer => this.selectedTransformer = selectedTransformer
+      selectedTransformer => this.displayTransformer(selectedTransformer)
     );
 
   }
@@ -46,18 +45,26 @@ export class TransformerAddComponent implements OnInit, OnDestroy {
     this.transformer = transformer;
 
     if (this.transformer) {
-      // Reset the form back to pristine
-      this.transformerForm.reset();
-      // Update the data on the form
-      this.transformerForm.patchValue({
-        name: this.transformer.name,
-        vehicleGroup: this.transformer.vehicleGroup,
-        vehicleType: this.transformer.vehicleType,
-        vehicleModel: this.transformer.vehicleModel,
-        gear: this.transformer.gear,
-        status: this.transformer.status
-      });
+      if (this.transformer.name === 'New') {
+        // Reset the form back to pristine
+        this.transformerForm.reset();
+        // Update the data on the form
+        this.transformerForm.patchValue({
+          name: this.transformer.name,
+          vehicleGroup: this.transformer.vehicleGroup,
+          vehicleType: this.transformer.vehicleType,
+          vehicleModel: this.transformer.vehicleModel,
+          gear: this.transformer.gear,
+          status: this.transformer.status
+        });
+      } else {
+        this.transformerSelected(this.transformer);
+      }
     }
+  }
+
+  transformerSelected(transformer: Trans): void {
+    this.transformerService.changeSelectedTransformer(transformer);
   }
 
   cancelEdit(): void {

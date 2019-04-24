@@ -8,8 +8,9 @@
     <div class="list-group">
       <button class="list-group-item list-group-item-action rounded-0"
               *ngFor="let transformer of transformers"
-              [ngClass]="{'active': transformer?.id === selectedTransformer?.id}"
-              (click)="transformerSelected(transformer)">{{ transformer.name }}
+              [routerLink]="['/transformers', transformer.id]">
+              {{ transformer.name }}
+              <!--(click)="editTransformer(transformer)">{{ transformer.name }}-->
       </button>
     </div>
   </div>
