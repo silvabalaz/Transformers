@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Trans} from '../transformer';
+import {Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {any} from 'codelyzer/util/function';
 
 @Component({
   /*selector: 'app-pm-transformer-edit',*/
@@ -14,6 +15,32 @@ export class TransformerEditComponent implements OnInit {
   errorMessage: string;
   transformerForm: FormGroup;
   transformer: Trans | null;
+  vehicleType: VehicleTypes;
+  group: string[];
+  type: string[];
+  model: string[];
+  /*vehicleType: any [] = [
+    {
+      group: 'Air',
+      type: 'Plane',
+      model: 'F-22'
+    },
+    {
+      group: 'Air',
+      type: 'Plane',
+      model: 'Sukhoi'
+    },
+    {
+      group: 'Air',
+      type: 'Plane',
+      model: 'MiG'
+    },
+    {
+      group: 'Land',
+      type:  'Truck',
+      model: 'Western Star 5700'
+    }
+  ];*/
 
   constructor(private fb: FormBuilder,
               private transformerService: TransformerService,
@@ -32,6 +59,7 @@ export class TransformerEditComponent implements OnInit {
       status: ''
     });
     this.getTransformer();
+
   }
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -41,6 +69,15 @@ export class TransformerEditComponent implements OnInit {
             this.displayTransformer(this.transformer);
        });
   }
+/*  getVehicleTypes(): void {
+    this.transformerService.getVehicleTypes()
+      .subscribe((vehicleType => {
+        this.vehicleTypes = vehicleTypes;
+        this.group.push(this.vehicleType.group);
+        this.type.push(this.vehicleType.type);
+        this.model.push(this.vehicleType.model);
+      }));
+  }*/
 
 /*  saveTransformer(): void {
     this.transformerService.updateTransformer(this.transformer)

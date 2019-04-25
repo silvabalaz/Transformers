@@ -8,3 +8,9 @@ export interface Trans {
   status?: string;
 }
 
+export interface VehicleTypes {
+  group?: string;
+  type?: string;
+  model?: string;
+}
+
