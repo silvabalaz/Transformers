@@ -5,7 +5,7 @@ import {tap} from 'rxjs/internal/operators/tap';
 import {catchError} from 'rxjs/internal/operators/catchError';
 import {of} from 'rxjs/internal/observable/of';
 import {Trans} from './transformer';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,7 @@ import {map} from 'rxjs/operators';
 export class TransformerService {
   private transformersUrl = '/api/transformers';
   private transformers: Trans[];
+  private transformer: Trans;
   private selectedTransformerSource = new BehaviorSubject<Trans| null>(null);
   selectedTransformerChanges$ = this.selectedTransformerSource.asObservable();
 
@@ -35,7 +36,14 @@ export class TransformerService {
         catchError(this.handleError)
       );
   }
-
+  getTransformer(id: number): Observable<Trans> {
+    return this.http.get<Trans>(this.transformersUrl + '/' + id)
+      .pipe(
+        tap(data => console.log(JSON.stringify(data))),
+        tap(data => this.transformer = data),
+        catchError(this.handleError)
+      );
+  }
   // Return an initialized transformer
   newTransformer(): Trans {
     console.log('newTransformer');

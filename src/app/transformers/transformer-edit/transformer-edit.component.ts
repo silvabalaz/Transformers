@@ -1,6 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Subscription} from 'rxjs';
 import {Trans} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -16,15 +15,14 @@ export class TransformerEditComponent implements OnInit {
   transformerForm: FormGroup;
 
   transformer: Trans | null;
-  sub: Subscription;
 
   constructor(private fb: FormBuilder,
               private transformerService: TransformerService,
               private route: ActivatedRoute,
               private router: Router
               ) {
-
   }
+
   ngOnInit(): void {
     this.transformerForm = this.fb.group({
       name: '',
@@ -34,27 +32,29 @@ export class TransformerEditComponent implements OnInit {
       gear: [''],
       status: ''
     });
+    this.getTransformer();
+  }
+  getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.pageTitle += ': ${id}';
+    this.transformerService.getTransformer(id)
+      .subscribe(transformer => this.transformer = transformer);
+  }
+
+  saveTransformer(): void {
+    this.transformerService.updateTransformer(this.transformer)
+      .subscribe(() => this.onBack());
   }
   onBack(): void {
     this.router.navigate(['/transformers']);
   }
-   displayTransformer(transformer: Trans): void {
+  displayTransformer(transformer: Trans): void {
     // Set the local transformer property
     this.transformer = transformer;
 
     if (this.transformer) {
       // Reset the form back to pristine
       this.transformerForm.reset();
-
-      // Display the appropriate page title
-      if (this.transformer.id === 0) {
-        this.pageTitle = 'Add Transformer';
-      } else {
-        this.pageTitle = `Edit Transformer: ${this.transformer.name}`;
-      }
-
+      this.pageTitle = `Edit Transformer: ${this.transformer.name}`;
       // Update the data on the form
       this.transformerForm.patchValue({
         name: this.transformer.name,
@@ -72,7 +72,7 @@ export class TransformerEditComponent implements OnInit {
     this.displayTransformer(this.transformer);
   }
 
-  saveTransformer(): void {
+/*  saveTransformer(): void {
     if (this.transformerForm.valid) {
       if (this.transformerForm.dirty) {
         // Copy over all of the original product properties
@@ -94,7 +94,7 @@ export class TransformerEditComponent implements OnInit {
     } else {
       this.errorMessage = 'Please correct the validation errors.';
     }
-  }
+  }*/
 
 
 
