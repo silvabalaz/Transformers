@@ -13,7 +13,6 @@ export class TransformerEditComponent implements OnInit {
   pageTitle = 'Transformer Edit';
   errorMessage: string;
   transformerForm: FormGroup;
-
   transformer: Trans | null;
 
   constructor(private fb: FormBuilder,
@@ -37,13 +36,16 @@ export class TransformerEditComponent implements OnInit {
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.transformerService.getTransformer(id)
-      .subscribe(transformer => this.transformer = transformer);
+      .subscribe(transformer => {
+            this.transformer = transformer;
+            this.displayTransformer(this.transformer);
+       });
   }
 
-  saveTransformer(): void {
+/*  saveTransformer(): void {
     this.transformerService.updateTransformer(this.transformer)
       .subscribe(() => this.onBack());
-  }
+  }*/
   onBack(): void {
     this.router.navigate(['/transformers']);
   }
@@ -72,29 +74,22 @@ export class TransformerEditComponent implements OnInit {
     this.displayTransformer(this.transformer);
   }
 
-/*  saveTransformer(): void {
+  saveTransformer(): void {
     if (this.transformerForm.valid) {
       if (this.transformerForm.dirty) {
         // Copy over all of the original product properties
         // Then copy over the values from the form
         // This ensures values not on the form, such as the Id, are retained
         const p = { ...this.transformer, ...this.transformerForm.value };
-        if (p.id === 0) {
-          this.transformerService.createTransformer(p).subscribe(
-            transformer => this.transformerService.changeSelectedTransformer(transformer),
-            (err: any) => this.errorMessage = err.error
-          );
-        } else {
-          this.transformerService.updateTransformer(p).subscribe(
-            transformer => this.transformerService.changeSelectedTransformer(transformer),
-            (err: any) => this.errorMessage = err.error
-          );
+        this.transformerService.updateTransformer(p).subscribe(
+          transformer => this.transformerService.changeSelectedTransformer(transformer),
+          (err: any) => this.errorMessage = err.error
+        );
         }
-      }
     } else {
       this.errorMessage = 'Please correct the validation errors.';
     }
-  }*/
+  }
 
 
 
