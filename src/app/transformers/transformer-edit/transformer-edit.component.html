@@ -78,7 +78,7 @@
             <option *ngFor="let val of selected?.value" [ngValue]="val">{{val}}</option>
           </select>-->
 
-          <select class="form-control"  name="vehicleGroup" [(ngModel)]="vehicleTypes">
+          <select class="form-control"  formControlName="vehicleTypes" name="vehicleGroup" [(ngModel)]="vehicleTypes">
             <option *ngFor="let item of vehicleTypes" [value]="item">{{ item.group }}</option>
           </select>
        <!--   <select class="form-control" multiple name="vehicleType" [(ngModel)]="vehicleTypes.type">

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {any} from 'codelyzer/util/function';
+import set = Reflect.set;
 
 @Component({
   /*selector: 'app-pm-transformer-edit',*/
@@ -15,10 +16,13 @@ export class TransformerEditComponent implements OnInit {
   errorMessage: string;
   transformerForm: FormGroup;
   transformer: Trans | null;
-  vehicleType: VehicleTypes;
+  vehicleTypes: VehicleTypes[];
   group: string[];
   type: string[];
   model: string[];
+  filteredGroup: any;
+  filteredType: any;
+  filteredModel: any;
   /*vehicleType: any [] = [
     {
       group: 'Air',
@@ -55,11 +59,12 @@ export class TransformerEditComponent implements OnInit {
       vehicleGroup: '',
       vehicleType: '',
       vehicleModel: '',
+      vehicleTypes: new FormControl(this.vehicleTypes),
       gear: [''],
       status: ''
     });
     this.getTransformer();
-
+    this.getVehicleTypes();
   }
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -69,22 +74,34 @@ export class TransformerEditComponent implements OnInit {
             this.displayTransformer(this.transformer);
        });
   }
-/*  getVehicleTypes(): void {
+  getVehicleTypes(): void {
     this.transformerService.getVehicleTypes()
-      .subscribe((vehicleType => {
+      .subscribe((vehicleTypes => {
+      for ( let i = 0; i < vehicleTypes.length; i++ ) {
         this.vehicleTypes = vehicleTypes;
-        this.group.push(this.vehicleType.group);
-        this.type.push(this.vehicleType.type);
-        this.model.push(this.vehicleType.model);
+        this.group.push(this.vehicleTypes[i].group);
+        this.type.push(this.vehicleTypes[i].type);
+        this.model.push(this.vehicleTypes[i].model);
+        this.displayVehicleTypes(this.group, this.type, this.model);
+      }
       }));
-  }*/
-
+  }
 /*  saveTransformer(): void {
     this.transformerService.updateTransformer(this.transformer)
       .subscribe(() => this.onBack());
   }*/
   onBack(): void {
     this.router.navigate(['/transformers']);
+  }
+  displayVehicleTypes(group: string[], type: string [], model: string[]): void {
+    this.filteredGroup = new Set(group);
+    this.filteredType = new Set(type);
+    this.filteredModel = new Set(model);
+    this.transformerForm.patchValue({
+    vehicleGroup: this.filteredGroup,
+    vehicleType: this.filteredType,
+    vehicleModel: this.filteredModel,
+    });
   }
   displayTransformer(transformer: Trans): void {
     // Set the local transformer property
