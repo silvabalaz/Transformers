@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div class="form-group row">
+        <!--<div class="form-group row">
           <label class="col-md-3 col-form-label" for="transformerVehicleGroup">Vehicle Group</label>
 
           <div class="col-md-9">
@@ -31,7 +31,7 @@
                    formControlName="vehicleGroup"
                     />
           </div>
-        </div>
+        </div>-->
 
         <div class="form-group row">
           <label class="col-md-3 col-form-label" for="vehicleTypeId">Vehicle Type</label>
@@ -77,16 +77,18 @@
           <p><select [(ngModel)]="selected2">
             <option *ngFor="let val of selected?.value" [ngValue]="val">{{val}}</option>
           </select>-->
-
-          <select class="form-control"  formControlName="vehicleTypes" name="vehicleGroup" [(ngModel)]="vehicleTypes">
-            <option *ngFor="let item of vehicleTypes" [value]="item">{{ item.group }}</option>
+          <label>Vehicle Types Group</label>
+          <select class="form-control" formControlName="vehicleTypesGroup" name="vehicleTypesGroup">
+            <option *ngFor="let item of vehicleTypesGroup" [value]="item">{{ item }}</option>
           </select>
-       <!--   <select class="form-control" multiple name="vehicleType" [(ngModel)]="vehicleTypes.type">
-            <option *ngFor="let item of vehicleTypes.group?.value" [value]="item">{{ item }}</option>
+          <label>Vehicle Types Type</label>
+          <select class="form-control" multiple name="vehicleTypesType">
+            <option *ngFor="let item2 of vehicleTypes?.group.value" [value]="item2">{{ item2 }}</option>
           </select>
-          <select class="form-control" multiple name="vehicleModel" [(ngModel)]="vehicleTypes.model">
-            <option *ngFor="let item of vehicleTypes.type?.value" [value]="item">{{ item  }}</option>
-          </select>-->
+          <label>Vehicle Types Model</label>
+          <select class="form-control" multiple name="vehicleTypesModel">
+            <option *ngFor="let item of vehicleTypesModel?.value" [value]="item">{{ item  }}</option>
+          </select>
         </div>
         <div class="form-group row">
           <label class="col-md-3 col-form-label" for="transformerStatus">Transformer Status</label>

@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {any} from 'codelyzer/util/function';
-import set = Reflect.set;
 
 @Component({
   /*selector: 'app-pm-transformer-edit',*/
@@ -16,14 +14,16 @@ export class TransformerEditComponent implements OnInit {
   errorMessage: string;
   transformerForm: FormGroup;
   transformer: Trans | null;
-  vehicleTypes: VehicleTypes[];
+  vehicleTypesGroup: string[];
+  vehicleTypesType: string[];
+  vehicleTypesModel: string[];
   group: string[];
   type: string[];
   model: string[];
   filteredGroup: any;
   filteredType: any;
   filteredModel: any;
-  /*vehicleType: any [] = [
+  data: VehicleTypes[] = [
     {
       group: 'Air',
       type: 'Plane',
@@ -44,7 +44,7 @@ export class TransformerEditComponent implements OnInit {
       type:  'Truck',
       model: 'Western Star 5700'
     }
-  ];*/
+  ];
 
   constructor(private fb: FormBuilder,
               private transformerService: TransformerService,
@@ -56,10 +56,12 @@ export class TransformerEditComponent implements OnInit {
   ngOnInit(): void {
     this.transformerForm = this.fb.group({
       name: '',
-      vehicleGroup: '',
-      vehicleType: '',
-      vehicleModel: '',
-      vehicleTypes: new FormControl(this.vehicleTypes),
+      vehicleGroup: [''],
+      vehicleType: [''],
+      vehicleModel: [''],
+      vehicleTypesGroup: [''],
+      vehicleTypesType: [''],
+      vehicleTypesModel: [''],
       gear: [''],
       status: ''
     });
@@ -74,7 +76,7 @@ export class TransformerEditComponent implements OnInit {
             this.displayTransformer(this.transformer);
        });
   }
-  getVehicleTypes(): void {
+/*  getVehicleTypes(): void {
     this.transformerService.getVehicleTypes()
       .subscribe((vehicleTypes => {
       for ( let i = 0; i < vehicleTypes.length; i++ ) {
@@ -85,6 +87,20 @@ export class TransformerEditComponent implements OnInit {
         this.displayVehicleTypes(this.group, this.type, this.model);
       }
       }));
+  }*/
+  getVehicleTypes(): void {
+    for (let  i = 0; i < this.data.length; i++ ) {
+      console.log('This vehicle types ' + this.data[i].group);
+      console.log('This vehicle types ' + this.data[i].type);
+      console.log('This vehicle types ' + this.data[i].model);
+  /*  this.group.push(this.vehicleTypes[i].group);
+      this.type.push(this.vehicleTypes[i].type);
+      this.model.push(this.vehicleTypes[i].model);*/
+      this.group = ['Ana', 'Ana'];
+      this.type = ['Banana', 'Banana', 'Lana'];
+      this.model = [''];
+    }
+    this.displayVehicleTypes(this.group, this.type, this.model);
   }
 /*  saveTransformer(): void {
     this.transformerService.updateTransformer(this.transformer)
@@ -97,11 +113,19 @@ export class TransformerEditComponent implements OnInit {
     this.filteredGroup = new Set(group);
     this.filteredType = new Set(type);
     this.filteredModel = new Set(model);
-    this.transformerForm.patchValue({
-    vehicleGroup: this.filteredGroup,
-    vehicleType: this.filteredType,
-    vehicleModel: this.filteredModel,
-    });
+    this.vehicleTypesGroup = Array.from(this.filteredGroup);
+    this.vehicleTypesType = searchForType(this.vehicleTypesGroup);
+    this.vehicleTypesModel = searchForModel(this.vehicleTypesType);
+  }
+  searchForType(vehicleTypesGroup: string[]): string[] {
+
+    vehicleTypesType: string[]
+    for(let i; i < this.data.length; i++)
+       if(this.data[i].group === vehicleTypesGroup ) {
+         vehicleTypesType.push(this.data[i].type);
+       }
+
+    return vehicleTypesType;
   }
   displayTransformer(transformer: Trans): void {
     // Set the local transformer property

@@ -12,6 +12,7 @@ import {filter, map} from 'rxjs/operators';
 })
 export class TransformerService {
   private transformersUrl = '/api/transformers';
+  private vehicleTypesUrl = '/api/vehicleTypes';
   private transformers: Trans[];
   private transformer: Trans;
   private vehicleTypes: VehicleTypes[];
@@ -49,7 +50,7 @@ export class TransformerService {
     if (this.vehicleTypes) {
       return of(this.vehicleTypes);
     }
-    return this.http.get<VehicleTypes[]>(this.transformersUrl)
+    return this.http.get<VehicleTypes[]>(this.vehicleTypesUrl)
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
         tap(data => this.vehicleTypes = data),
