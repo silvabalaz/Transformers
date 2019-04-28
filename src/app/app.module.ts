@@ -11,10 +11,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {TransformerData} from './transformers/transformer-data';
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {FormsModule} from '@angular/forms';
+import {TypePipe} from './app.vehicle-type';
+import {ModelPipe} from './app.vehicle-model';
 
 
 @NgModule({
   declarations: [
+    TypePipe,
+    ModelPipe,
     AppComponent,
     ShellComponent,
     MenuComponent,
@@ -24,11 +28,14 @@ import {FormsModule} from '@angular/forms';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(TransformerData),
+    AppRoutingModule
   ],
   providers: [],
+  exports: [
+    TypePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
