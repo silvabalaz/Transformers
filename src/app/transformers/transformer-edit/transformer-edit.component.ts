@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {any} from 'codelyzer/util/function';
 
 @Component({
   /*selector: 'app-pm-transformer-edit',*/
@@ -36,9 +35,9 @@ export class TransformerEditComponent implements OnInit {
       gear: [''],
       status: ''
     });
-    this.getTransformer();
     this.vehicleTypes = this.getVehicleTypes();
     this.vehicleTypesChanged = this.vehicleTypes;
+    this.getTransformer();
   }
 
   changeByGroup(val: any): void {
