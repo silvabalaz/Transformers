@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {any} from 'codelyzer/util/function';
 
 @Component({
   /*selector: 'app-pm-transformer-edit',*/
@@ -15,34 +16,6 @@ export class TransformerEditComponent implements OnInit {
   transformerForm: FormGroup;
   transformer: Trans | null;
   vehicleTypes: VehicleTypes[];
-  group: string[];
-  type: string[];
-  model: string[];
-  filteredGroup: any;
-  filteredType: any;
-  filteredModel: any;
-  data: VehicleTypes[] = [
-    {
-      group: 'Air',
-      type: 'Plane',
-      model: 'F-22'
-    },
-    {
-      group: 'Air',
-      type: 'Plane',
-      model: 'Sukhoi'
-    },
-    {
-      group: 'Air',
-      type: 'Plane',
-      model: 'MiG'
-    },
-    {
-      group: 'Land',
-      type:  'Truck',
-      model: 'Western Star 5700'
-    }
-  ];
 
   constructor(private fb: FormBuilder,
               private transformerService: TransformerService,
@@ -63,6 +36,15 @@ export class TransformerEditComponent implements OnInit {
     });
     this.getTransformer();
     this.vehicleTypes = this.getVehicleTypes();
+  }
+
+  changeByGroup(val: any): void {
+    console.log('val.target.options' + val.target.options );
+    console.log('val.target.options[]' +  val.target.options[val.target.options.selectedIndex].text);
+    this.vehicleTypes = this.vehicleTypes.filter(items => items.group === val);
+  }
+  changeByType(val: any): void {
+    this.vehicleTypes = this.vehicleTypes.filter(items => items.type === val);
   }
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
