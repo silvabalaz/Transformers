@@ -14,9 +14,7 @@ export class TransformerEditComponent implements OnInit {
   errorMessage: string;
   transformerForm: FormGroup;
   transformer: Trans | null;
-  vehicleTypesGroup: string[];
-  vehicleTypesType: string[];
-  vehicleTypesModel: string[];
+  vehicleTypes: VehicleTypes[];
   group: string[];
   type: string[];
   model: string[];
@@ -59,14 +57,12 @@ export class TransformerEditComponent implements OnInit {
       vehicleGroup: [''],
       vehicleType: [''],
       vehicleModel: [''],
-      vehicleTypesGroup: [''],
-      vehicleTypesType: [''],
-      vehicleTypesModel: [''],
+      vehicleTypes: [''],
       gear: [''],
       status: ''
     });
     this.getTransformer();
-    this.getVehicleTypes();
+    this.vehicleTypes = this.getVehicleTypes();
   }
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -76,32 +72,48 @@ export class TransformerEditComponent implements OnInit {
             this.displayTransformer(this.transformer);
        });
   }
+  getVehicleTypes(): VehicleTypes[] {
+    return [
+      {
+        group: 'Air',
+        type: 'Plane',
+        model: 'F-22'
+      },
+     {
+      group: 'Air',
+        type: 'Plane',
+      model: 'Sukhoi'
+    },
+    {
+      group: 'Air',
+        type: 'Plane',
+      model: 'MiG'
+    },
+    {
+      group: 'Land',
+        type:  'Truck',
+      model: 'Western Star 5700'
+    }
+  ];
+    }
 /*  getVehicleTypes(): void {
     this.transformerService.getVehicleTypes()
-      .subscribe((vehicleTypes => {
-      for ( let i = 0; i < vehicleTypes.length; i++ ) {
-        this.vehicleTypes = vehicleTypes;
-        this.group.push(this.vehicleTypes[i].group);
-        this.type.push(this.vehicleTypes[i].type);
-        this.model.push(this.vehicleTypes[i].model);
-        this.displayVehicleTypes(this.group, this.type, this.model);
-      }
-      }));
+      .subscribe(( vehicleTypes => this.vehicleTypes = this.data ));
   }*/
-  getVehicleTypes(): void {
+/*  getVehicleTypes(): void {
     for (let  i = 0; i < this.data.length; i++ ) {
       console.log('This vehicle types ' + this.data[i].group);
       console.log('This vehicle types ' + this.data[i].type);
       console.log('This vehicle types ' + this.data[i].model);
-  /*  this.group.push(this.vehicleTypes[i].group);
+  /!*  this.group.push(this.vehicleTypes[i].group);
       this.type.push(this.vehicleTypes[i].type);
-      this.model.push(this.vehicleTypes[i].model);*/
+      this.model.push(this.vehicleTypes[i].model);*!/
       this.group = ['Ana', 'Ana'];
       this.type = ['Banana', 'Banana', 'Lana'];
       this.model = [''];
     }
     this.displayVehicleTypes(this.group, this.type, this.model);
-  }
+  }*/
 /*  saveTransformer(): void {
     this.transformerService.updateTransformer(this.transformer)
       .subscribe(() => this.onBack());
@@ -109,15 +121,15 @@ export class TransformerEditComponent implements OnInit {
   onBack(): void {
     this.router.navigate(['/transformers']);
   }
-  displayVehicleTypes(group: string[], type: string [], model: string[]): void {
+/*  displayVehicleTypes(group: string[], type: string [], model: string[]): void {
     this.filteredGroup = new Set(group);
     this.filteredType = new Set(type);
     this.filteredModel = new Set(model);
     this.vehicleTypesGroup = Array.from(this.filteredGroup);
-    this.vehicleTypesType = searchForType(this.vehicleTypesGroup);
-    this.vehicleTypesModel = searchForModel(this.vehicleTypesType);
-  }
-  searchForType(vehicleTypesGroup: string[]): string[] {
+    // this.vehicleTypesType = searchForType(this.vehicleTypesGroup);
+    // this.vehicleTypesModel = searchForModel(this.vehicleTypesType);
+  }*/
+/*  searchForType(vehicleTypesGroup: string[]): string[] {
 
     vehicleTypesType: string[]
     for(let i; i < this.data.length; i++)
@@ -126,7 +138,7 @@ export class TransformerEditComponent implements OnInit {
        }
 
     return vehicleTypesType;
-  }
+  }*/
   displayTransformer(transformer: Trans): void {
     // Set the local transformer property
     this.transformer = transformer;

@@ -6,6 +6,7 @@ import {TransformerShellComponent} from './transformer-shell/transformer-shell.c
 import {SharedModule} from '../shared/shared.module';
 import {TransformerEditShellComponent} from './transformer-edit-shell/transformer-edit-shell.component';
 import {TransformerAddComponent} from './transformer-add/transformer-add.component';
+import {AppModule} from '../app.module';
 
 const transformerRoutes: Routes = [
   { path: '', component: TransformerShellComponent },
