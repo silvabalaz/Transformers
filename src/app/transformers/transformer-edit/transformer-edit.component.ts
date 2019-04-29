@@ -16,6 +16,7 @@ export class TransformerEditComponent implements OnInit {
   transformerForm: FormGroup;
   transformer: Trans | null;
   vehicleTypes: VehicleTypes[];
+  vehicleTypesChanged: VehicleTypes[];
 
   constructor(private fb: FormBuilder,
               private transformerService: TransformerService,
@@ -31,20 +32,27 @@ export class TransformerEditComponent implements OnInit {
       vehicleType: [''],
       vehicleModel: [''],
       vehicleTypes: [''],
+      vehicleTypesChanged: [''],
       gear: [''],
       status: ''
     });
     this.getTransformer();
     this.vehicleTypes = this.getVehicleTypes();
+    this.vehicleTypesChanged = this.vehicleTypes;
   }
 
   changeByGroup(val: any): void {
     console.log('val.target.options' + val.target.options );
     console.log('val.target.options[]' +  val.target.options[val.target.options.selectedIndex].text);
-    this.vehicleTypes = this.vehicleTypes.filter(items => items.group === val);
+    const filterBy = val.target.options[val.target.options.selectedIndex].text;
+
+    this.vehicleTypesChanged = this.vehicleTypes.filter(items => items.group === filterBy);
+    console.log(this.vehicleTypesChanged.values());
   }
   changeByType(val: any): void {
-    this.vehicleTypes = this.vehicleTypes.filter(items => items.type === val);
+    const filterBy = val.target.options[val.target.options.selectedIndex].text;
+    this.vehicleTypesChanged = this.vehicleTypesChanged.filter(items => items.type === filterBy);
+    console.log(this.vehicleTypesChanged.values());
   }
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
