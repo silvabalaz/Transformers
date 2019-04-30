@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {not} from 'rxjs/internal-compatibility';
 
 @Component({
   /*selector: 'app-pm-transformer-edit',*/
@@ -22,7 +23,7 @@ export class TransformerEditComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router
               ) {
-  }
+              }
 
   ngOnInit(): void {
     this.transformerForm = this.fb.group({
@@ -38,21 +39,55 @@ export class TransformerEditComponent implements OnInit {
     this.vehicleTypes = this.getVehicleTypes();
     this.vehicleTypesChanged = this.vehicleTypes;
     this.getTransformer();
+    // this.getSelected();
   }
-
+/*  getSelected(): void {
+    this.selected.group = this.transformer.vehicleGroup;
+    this.selected.type = this.transformer.vehicleType;
+    this.selected.model = this.transformer.vehicleModel;
+    for (let i = 0; i <= this.vehicleTypes.length; i++) {
+      if (this.transformer.vehicleGroup === this.vehicleTypes[i].group && this.transformer.vehicleType === this.vehicleTypes[i].type &&
+        this.transformer.vehicleModel === this.vehicleTypes[i].model) {
+         this.selected = this.vehicleTypes[i];
+      }
+    }
+  }*/
   changeByGroup(val: any): void {
     console.log('val.target.options' + val.target.options );
     console.log('val.target.options[]' +  val.target.options[val.target.options.selectedIndex].text);
     const filterBy = val.target.options[val.target.options.selectedIndex].text;
-
-    this.vehicleTypesChanged = this.vehicleTypes.filter(items => items.group === filterBy);
+    const filteredGroup = this.vehicleTypes.filter(items => items.group === filterBy);
+    // this.vehicleTypes = this.removeDuplicates(this.vehicleTypes, filterBy);
+    this.vehicleTypesChanged = filteredGroup;
+    this.transformer.vehicleGroup = filterBy;
+    this.transformer.vehicleType = '';
+    this.transformer.vehicleModel = '';
+    this.displayTransformer(this.transformer);
     console.log(this.vehicleTypesChanged.values());
   }
   changeByType(val: any): void {
     const filterBy = val.target.options[val.target.options.selectedIndex].text;
+    const filteredType = new Set(this.vehicleTypesChanged.filter(items => items.type === filterBy));
+    console.log('filteredType' + filteredType);
     this.vehicleTypesChanged = this.vehicleTypesChanged.filter(items => items.type === filterBy);
+    this.transformer.vehicleType = filterBy;
+    this.displayTransformer(this.transformer);
     console.log(this.vehicleTypesChanged.values());
   }
+  changeByModel(val: any): void {
+    const filterBy = val.target.options[val.target.options.selectedIndex].text;
+    this.transformer.vehicleModel = filterBy;
+    this.displayTransformer(this.transformer);
+    console.log(this.vehicleTypesChanged.values());
+  }
+/*  removeDuplicates(duplicates: VehicleTypes[], filterBy: string): VehicleTypes[] {
+    let filtered: VehicleTypes[];
+    filtered.add(duplicates[0]);
+    for(let i = 1; i < duplicates.length; i++) {
+      if (duplicates[i].group in filtere )
+    }
+    return filtered;
+  }*/
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.transformerService.getTransformer(id)
