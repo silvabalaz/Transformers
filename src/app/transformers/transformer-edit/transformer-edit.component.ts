@@ -4,6 +4,8 @@ import {Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {not} from 'rxjs/internal-compatibility';
+import {error} from '@angular/compiler/src/util';
+import {map} from 'rxjs/operators';
 
 @Component({
   /*selector: 'app-pm-transformer-edit',*/
@@ -17,6 +19,7 @@ export class TransformerEditComponent implements OnInit {
   transformer: Trans | null;
   vehicleTypes: VehicleTypes[];
   vehicleTypesChanged: VehicleTypes[];
+  filtered: VehicleTypes[];
 
   constructor(private fb: FormBuilder,
               private transformerService: TransformerService,
@@ -57,7 +60,7 @@ export class TransformerEditComponent implements OnInit {
     console.log('val.target.options[]' +  val.target.options[val.target.options.selectedIndex].text);
     const filterBy = val.target.options[val.target.options.selectedIndex].text;
     const filteredGroup = this.vehicleTypes.filter(items => items.group === filterBy);
-    // this.vehicleTypes = this.removeDuplicates(this.vehicleTypes, filterBy);
+    // this.removeDuplicates(this.vehicleTypes, this.filtered);
     this.vehicleTypesChanged = filteredGroup;
     this.transformer.vehicleGroup = filterBy;
     this.transformer.vehicleType = '';
@@ -80,14 +83,16 @@ export class TransformerEditComponent implements OnInit {
     this.displayTransformer(this.transformer);
     console.log(this.vehicleTypesChanged.values());
   }
-/*  removeDuplicates(duplicates: VehicleTypes[], filterBy: string): VehicleTypes[] {
-    let filtered: VehicleTypes[];
-    filtered.add(duplicates[0]);
-    for(let i = 1; i < duplicates.length; i++) {
-      if (duplicates[i].group in filtere )
-    }
-    return filtered;
-  }*/
+  removeDuplicates(duplicates: VehicleTypes[], filtered: VehicleTypes[]): void{
+      for (const element1 of duplicates) {
+        for (const element2 of filtered) {
+          if (element1.group === element2.group) {
+            filtered.splice(filtered.indexOf(element2), 1);
+            break;
+          }
+        }
+      }
+  }
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.transformerService.getTransformer(id)
