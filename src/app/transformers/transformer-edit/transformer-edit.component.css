@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+1p');
+.card{
+  background-color: #e9ecef8a;
+}
+.card-header {
+  background-color: #b3d7ff;
+  color: white;
+  font-weight: bold;
+  font-family: 'M+PLUS+1p' !important;
+}
+
+.btn-primary {
+  background-color: #b3d7ff;
+  border-color: #b3d7ff;
+}

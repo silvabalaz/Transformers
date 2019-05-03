@@ -117,12 +117,12 @@
         <div class="form-group">
           <div class="col-md-10 col-md-offset-2">
             <span>
-              <button class="btn btn-primary" type="submit" style="width:80px;margin-right:10px" [disabled]="!transformerForm.valid || !transformerForm.dirty">
+              <button class="btn btn-primary" type="submit"[disabled]="!transformerForm.valid || !transformerForm.dirty">
                 Save
               </button>
             </span>
             <span>
-              <button class="btn btn-light" type="button" style="width:80px;margin-right:10px" (click)="cancelEdit()">
+              <button class="btn btn-light" type="button" style="" (click)="cancelEdit()">
                 Cancel
               </button>
             </span>
