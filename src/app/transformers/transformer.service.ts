@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {tap} from 'rxjs/internal/operators/tap';
 import {catchError} from 'rxjs/internal/operators/catchError';
 import {of} from 'rxjs/internal/observable/of';
 import {Trans, VehicleTypes} from './transformer';
-import {filter, map} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,6 @@ export class TransformerService {
   changeSelectedTransformer(selectedTransformer: Trans | null): void {
     console.log('changeSelectedTransformer');
     this.selectedTransformerSource.next(selectedTransformer);
-    console.log('changeSelectedTransformer' + this.selectedTransformerSource.next(selectedTransformer) );
   }
 
   getTransformers(): Observable<Trans[]> {

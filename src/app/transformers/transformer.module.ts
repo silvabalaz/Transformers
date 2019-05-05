@@ -3,34 +3,35 @@ import {TransformerEditComponent} from './transformer-edit/transformer-edit.comp
 import {NgModule} from '@angular/core';
 import {TransformerListComponent} from './transformer-list/transformer-list.component';
 import {TransformerShellComponent} from './transformer-shell/transformer-shell.component';
-import {SharedModule} from '../shared/shared.module';
-import {TransformerEditShellComponent} from './transformer-edit-shell/transformer-edit-shell.component';
 import {TransformerAddComponent} from './transformer-add/transformer-add.component';
-import {TypePipe} from './select.pipes/TypePipe';
-import {GroupPipe} from './select.pipes/GroupPipe';
+import {SearchPipe} from './select.pipes/SearchPipe';
+import {FilterPipe} from './select.pipes/FilterPipe';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 const transformerRoutes: Routes = [
   { path: '', component: TransformerShellComponent },
-  { path: ':id', component: TransformerEditComponent }
+  { path: ':id', component: TransformerEditComponent },
+  { path: 'new', component: TransformerEditComponent }
 ];
 
 @NgModule({
   imports: [
-    SharedModule,
-    RouterModule.forChild(transformerRoutes)
+    RouterModule.forChild(transformerRoutes),
+    ReactiveFormsModule,
+    CommonModule
   ],
   declarations: [
-    GroupPipe,
-    TypePipe,
+    FilterPipe,
+    SearchPipe,
     TransformerShellComponent,
     TransformerListComponent,
     TransformerAddComponent,
-    TransformerEditShellComponent,
     TransformerEditComponent
   ],
   exports: [
-    GroupPipe,
-    TypePipe
+    FilterPipe,
+    SearchPipe
   ]
 })
 export class TransformerModule {

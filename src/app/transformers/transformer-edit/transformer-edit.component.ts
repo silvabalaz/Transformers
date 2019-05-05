@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {not} from 'rxjs/internal-compatibility';
-import {error} from '@angular/compiler/src/util';
-import {map} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 
 @Component({
-  /*selector: 'app-pm-transformer-edit',*/
+  selector: 'app-pm-transformer-edit',
   templateUrl: './transformer-edit.component.html',
   styleUrls: ['./transformer-edit.component.css']
 })
@@ -19,7 +17,7 @@ export class TransformerEditComponent implements OnInit {
   transformer: Trans | null;
   vehicleTypes: VehicleTypes[];
   vehicleTypesChanged: VehicleTypes[];
-  filtered: VehicleTypes[];
+  sub: Subscription;
 
   constructor(private fb: FormBuilder,
               private transformerService: TransformerService,
@@ -30,15 +28,16 @@ export class TransformerEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.transformerForm = this.fb.group({
-      name: '',
-      vehicleGroup: [''],
-      vehicleType: [''],
-      vehicleModel: [''],
-      vehicleTypes: [''],
-      vehicleTypesChanged: [''],
+      name: ['', Validators.required],
+      vehicleGroup: [{value: '', disabled: true}, Validators.required],
+      vehicleType: [{value: '', disabled: true}, Validators.required],
+      vehicleModel: [{value: '', disabled: true}, Validators.required],
       gear: [''],
-      status: ''
+      status: ['', Validators.required]
     });
+    this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
+      selectedTransformer => this.displayTransformer(selectedTransformer)
+    );
     this.vehicleTypes = this.getVehicleTypes();
     this.vehicleTypesChanged = this.vehicleTypes;
     this.getTransformer();
@@ -83,7 +82,7 @@ export class TransformerEditComponent implements OnInit {
     this.displayTransformer(this.transformer);
     console.log(this.vehicleTypesChanged.values());
   }
-  removeDuplicates(duplicates: VehicleTypes[], filtered: VehicleTypes[]): void{
+  removeDuplicates(duplicates: VehicleTypes[], filtered: VehicleTypes[]): void {
       for (const element1 of duplicates) {
         for (const element2 of filtered) {
           if (element1.group === element2.group) {
@@ -171,12 +170,15 @@ export class TransformerEditComponent implements OnInit {
   displayTransformer(transformer: Trans): void {
     // Set the local transformer property
     this.transformer = transformer;
-
+    // Reset the form back to pristine
+    this.transformerForm.reset();
+    // Display the appropriate page title
     if (this.transformer) {
-      // Reset the form back to pristine
-      this.transformerForm.reset();
-      this.pageTitle = `Edit Transformer: ${this.transformer.name}`;
-      // Update the data on the form
+      if (this.transformer.name === 'New') {
+        this.pageTitle = 'Add Transformer';
+      } else {
+        this.pageTitle = `Edit Transformer: ${this.transformer.name}`;
+      }
       this.transformerForm.patchValue({
         name: this.transformer.name,
         vehicleGroup: this.transformer.vehicleGroup,
@@ -187,7 +189,6 @@ export class TransformerEditComponent implements OnInit {
       });
     }
   }
-
   cancelEdit(): void {
     // Redisplay the currently selected transformer
     this.displayTransformer(this.transformer);
@@ -196,20 +197,23 @@ export class TransformerEditComponent implements OnInit {
   saveTransformer(): void {
     if (this.transformerForm.valid) {
       if (this.transformerForm.dirty) {
-        // Copy over all of the original product properties
-        // Then copy over the values from the form
-        // This ensures values not on the form, such as the Id, are retained
-        const p = { ...this.transformer, ...this.transformerForm.value };
-        this.transformerService.updateTransformer(p).subscribe(
-          transformer => this.transformerService.changeSelectedTransformer(transformer),
-          (err: any) => this.errorMessage = err.error
-        );
+        const p = {...this.transformer, ...this.transformerForm.value};
+        if (p.id === 0) {
+          this.transformerService.createTransformer(p).subscribe(
+            transformer => this.transformerService.changeSelectedTransformer(transformer),
+            (err: any) => this.errorMessage = err.error
+          );
+        } else {
+          this.transformerService.updateTransformer(p).subscribe(
+            transformer => this.transformerService.changeSelectedTransformer(transformer),
+            (err: any) => this.errorMessage = err.error
+          );
         }
-    } else {
-      this.errorMessage = 'Please correct the validation errors.';
+      } else {
+        this.errorMessage = 'Please correct the validation errors.';
+      }
     }
+
   }
-
-
 
 }

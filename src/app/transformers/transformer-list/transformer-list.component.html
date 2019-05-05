@@ -1,16 +1,18 @@
 <div class="card light">
-
-  <div class="card-header">
+  <div class="card-header" >
     {{pageTitle}}
   </div>
-
-  <div class="card-body" *ngIf="transformers?.length">
-    <div class="list-group">
+  <div class="card-body" *ngIf="transformers?.length" [formGroup]="searchForm">
+    <label for="search">Find by transformer name...</label>
+    <input id="search" formControlName="searchTerm"
+           class="form-control"
+           type="text"
+           placeholder="Search By Name"
+           (keyup) ="onChanges($event)"/>
       <button class="list-group-item list-group-item-action rounded-0"
-              *ngFor="let transformer of transformers"
+              *ngFor="let transformer of transformers | searchpipe:searchTerm"
               [routerLink]="['/transformers', transformer.id]">
-              {{ transformer.name }}
-              <!--(click)="editTransformer(transformer)">{{ transformer.name }}-->
+              {{ transformer.name}}
       </button>
     </div>
   </div>
@@ -26,7 +28,8 @@
       </div>
     </div>
   </div>
-</div>
+
 <div *ngIf="errorMessage" class="alert alert-danger">
   Error: {{ errorMessage }}
 </div>
+

@@ -5,9 +5,8 @@
   <div class="card-body">
     <form novalidate (ngSubmit)="saveTransformer()" [formGroup]="transformerForm">
       <fieldset>
-        <div class="form-group row">
+        <div class="form-group row" >
           <label class="col-md-3 col-form-label" for="transformerNameId">Transformer Name</label>
-
           <div class="col-md-9">
             <input
                    class="form-control"
@@ -28,12 +27,12 @@
                    type="text"
                    placeholder="Vehicle group (required)"
                    formControlName="vehicleGroup"
-                   disabled />
+                   />
           </div>
           <div class="col-md-4">
-            <select class="form-control" formControlName="vehicleTypes" name="vehicleTypesGroup" (change)="changeByGroup($event)" >
-              <option *ngFor="let item of vehicleTypes" [value]="item.group" >{{ item.group}}</option>
-            </select>
+<!--            <select class="form-control" formControlName="vehicleTypes" name="vehicleTypesGroup" (change)="changeByGroup($event)" >-->
+<!--              <option *ngFor="let item of vehicleTypes" [value]="item.group" >{{ item.group}}</option>-->
+<!--            </select>-->
           </div>
         </div>
 
@@ -47,12 +46,12 @@
                    type="text"
                    placeholder="Vehicle Type"
                    formControlName="vehicleType"
-                   disabled />
+                   />
           </div>
           <div class="col-md-4">
-            <select class="form-control" formControlName="vehicleTypesChanged" name="vehicleTypesType" (change)="changeByType($event)">
-              <option *ngFor="let item of vehicleTypesChanged"  [value]="item.type" >{{ item.type }}</option>
-            </select>
+<!--            <select class="form-control" formControlName="vehicleTypesChanged" name="vehicleTypesType" (change)="changeByType($event)">-->
+<!--              <option *ngFor="let item of vehicleTypesChanged"  [value]="item.type" >{{ item.type }}</option>-->
+<!--            </select>-->
           </div>
         </div>
 
@@ -65,13 +64,12 @@
               id="vehicleModelId"
               placeholder="Vehicle Model"
               formControlName="vehicleModel"
-              disabled
             />
           </div>
           <div class="col-md-4">
-            <select class="form-control" formControlName="vehicleTypesChanged" name="vehicleTypesModel">
-              <option *ngFor="let item of vehicleTypesChanged" [value]="item.model" disabled>{{ item.model }}</option>
-            </select>
+<!--            <select class="form-control" formControlName="vehicleTypesChanged" name="vehicleTypesModel" (change)="changeByModel($event)">-->
+<!--              <option *ngFor="let item of vehicleTypesChanged" [value]="item.model">{{ item.model }}</option>-->
+<!--            </select>-->
           </div>
         </div>
 

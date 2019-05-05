@@ -28,12 +28,12 @@
               type="text"
               placeholder="Vehicle group (required)"
               formControlName="vehicleGroup"
-              disabled />
+              disabled/>
           </div>
           <div class="col-md-4">
-           <!-- <select class="form-control" formControlName="vehicleTypes" name="vehicleTypesGroup" (change)="changeByGroup($event)" >
+         <select class="form-control" formControlName="vehicleTypes" name="vehicleTypesGroup" (change)="changeByGroup($event)" >
               <option *ngFor="let item of vehicleTypes" [value]="item.group" >{{ item.group}}</option>
-            </select>-->
+            </select>
           </div>
         </div>
 
@@ -47,12 +47,13 @@
               type="text"
               placeholder="Vehicle Type"
               formControlName="vehicleType"
-              disabled />
+              disabled
+            />
           </div>
           <div class="col-md-4">
-         <!--   <select class="form-control" formControlName="vehicleTypesChanged" name="vehicleTypesType" (change)="changeByType($event)">
+          <select class="form-control" formControlName="vehicleTypesChanged" name="vehicleTypesType" (change)="changeByType($event)">
               <option *ngFor="let item of vehicleTypesChanged"  [value]="item.type" >{{ item.type }}</option>
-            </select>-->
+            </select>
           </div>
         </div>
 
@@ -69,9 +70,9 @@
             />
           </div>
           <div class="col-md-4">
-          <!--  <select class="form-control" formControlName="vehicleTypesChanged" name="vehicleTypesModel">
-              <option *ngFor="let item of vehicleTypesChanged" [value]="item.model" disabled>{{ item.model }}</option>
-            </select>-->
+           <select class="form-control" formControlName="vehicleTypesChanged" name="vehicleTypesModel" (change)="changeByModel($event)">
+              <option *ngFor="let item of vehicleTypesChanged" [value]="item.model">{{ item.model }}</option>
+            </select>
           </div>
         </div>
 

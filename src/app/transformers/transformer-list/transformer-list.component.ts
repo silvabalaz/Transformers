@@ -3,6 +3,7 @@ import {Trans} from '../transformer';
 import {Subscription} from 'rxjs';
 import {TransformerService} from '../transformer.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-pm-transformer-list',
@@ -10,17 +11,20 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./transformer-list.component.css']
 })
 export class TransformerListComponent implements OnInit, OnDestroy {
-  pageTitle = 'Transformers list';
+  pageTitle = 'Transformer list';
   errorMessage: string;
+  searchForm: FormGroup;
+  searchTerm = '';
 
   transformers: Trans[];
   transformer: Trans;
-  // Used to highlight the selected transformer in the list
   selectedTransformer: Trans | null;
   sub: Subscription;
 
   constructor(private fb: FormBuilder,
-              private transformerService: TransformerService) { }
+              private transformerService: TransformerService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
@@ -31,8 +35,14 @@ export class TransformerListComponent implements OnInit, OnDestroy {
       (transformers: Trans[]) => this.transformers = transformers,
       (err: any) => this.errorMessage = err.error
     );
+    this.searchForm = this.fb.group({
+      searchTerm: ''
+    });
   }
 
+  onChanges(val: any): void {
+      this.searchTerm = val.target.value;
+  }
   ngOnDestroy(): void {
     console.log('OnDestroy transformer-list component');
     this.sub.unsubscribe();
@@ -40,15 +50,7 @@ export class TransformerListComponent implements OnInit, OnDestroy {
   newTransformer(): void {
     console.log('newTransformer transformer-list component');
     this.transformerService.changeSelectedTransformer(this.transformerService.newTransformer());
-  }
-
-/*  editTransformer(transformer: Trans): void {
-    console.log('newTransformer transformer-list component');
-    this.transformerService.changeSelectedTransformer(this.transformerService.updateTransformer);
-  }*/
-
-  transformerSelected(transformer: Trans): void {
-    this.transformerService.changeSelectedTransformer(transformer);
+    this.router.navigate(['/transformers/']);
   }
 
 }
