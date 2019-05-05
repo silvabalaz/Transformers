@@ -41,19 +41,8 @@ export class TransformerEditComponent implements OnInit {
     this.vehicleTypes = this.getVehicleTypes();
     this.vehicleTypesChanged = this.vehicleTypes;
     this.getTransformer();
-    // this.getSelected();
   }
-/*  getSelected(): void {
-    this.selected.group = this.transformer.vehicleGroup;
-    this.selected.type = this.transformer.vehicleType;
-    this.selected.model = this.transformer.vehicleModel;
-    for (let i = 0; i <= this.vehicleTypes.length; i++) {
-      if (this.transformer.vehicleGroup === this.vehicleTypes[i].group && this.transformer.vehicleType === this.vehicleTypes[i].type &&
-        this.transformer.vehicleModel === this.vehicleTypes[i].model) {
-         this.selected = this.vehicleTypes[i];
-      }
-    }
-  }*/
+
   changeByGroup(val: any): void {
     console.log('val.target.options' + val.target.options );
     console.log('val.target.options[]' +  val.target.options[val.target.options.selectedIndex].text);
@@ -124,49 +113,11 @@ export class TransformerEditComponent implements OnInit {
     }
   ];
     }
-/*  getVehicleTypes(): void {
-    this.transformerService.getVehicleTypes()
-      .subscribe(( vehicleTypes => this.vehicleTypes = this.data ));
-  }*/
-/*  getVehicleTypes(): void {
-    for (let  i = 0; i < this.data.length; i++ ) {
-      console.log('This vehicle types ' + this.data[i].group);
-      console.log('This vehicle types ' + this.data[i].type);
-      console.log('This vehicle types ' + this.data[i].model);
-  /!*  this.group.push(this.vehicleTypes[i].group);
-      this.type.push(this.vehicleTypes[i].type);
-      this.model.push(this.vehicleTypes[i].model);*!/
-      this.group = ['Ana', 'Ana'];
-      this.type = ['Banana', 'Banana', 'Lana'];
-      this.model = [''];
-    }
-    this.displayVehicleTypes(this.group, this.type, this.model);
-  }*/
-/*  saveTransformer(): void {
-    this.transformerService.updateTransformer(this.transformer)
-      .subscribe(() => this.onBack());
-  }*/
+
   onBack(): void {
     this.router.navigate(['/transformers']);
   }
-/*  displayVehicleTypes(group: string[], type: string [], model: string[]): void {
-    this.filteredGroup = new Set(group);
-    this.filteredType = new Set(type);
-    this.filteredModel = new Set(model);
-    this.vehicleTypesGroup = Array.from(this.filteredGroup);
-    // this.vehicleTypesType = searchForType(this.vehicleTypesGroup);
-    // this.vehicleTypesModel = searchForModel(this.vehicleTypesType);
-  }*/
-/*  searchForType(vehicleTypesGroup: string[]): string[] {
 
-    vehicleTypesType: string[]
-    for(let i; i < this.data.length; i++)
-       if(this.data[i].group === vehicleTypesGroup ) {
-         vehicleTypesType.push(this.data[i].type);
-       }
-
-    return vehicleTypesType;
-  }*/
   displayTransformer(transformer: Trans): void {
     // Set the local transformer property
     this.transformer = transformer;

@@ -1,9 +1,8 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Trans, VehicleTypes} from '../transformer';
 import {Subscription} from 'rxjs';
 import {TransformerService} from '../transformer.service';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-pm-transformer-add',
@@ -122,16 +121,12 @@ export class TransformerAddComponent implements OnInit, OnDestroy {
   }
 
   cancelEdit(): void {
-    // Redisplay the currently selected transformer
     this.displayTransformer(this.transformer);
   }
 
   saveTransformer(): void {
     if (this.transformerForm.valid) {
       if (this.transformerForm.dirty) {
-        // Copy over all of the original product properties
-        // Then copy over the values from the form
-        // This ensures values not on the form, such as the Id, are retained
         const p = { ...this.transformer, ...this.transformerForm.value };
         if (p.id === 0) {
           this.transformerService.createTransformer(p).subscribe(
