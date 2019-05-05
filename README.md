@@ -13,4 +13,4 @@ Welcome, Transformers List
 
 **Screenshots**
 
-![ekran1]welcome.png
+![ekran1].(welcome.png)
