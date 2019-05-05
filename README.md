@@ -13,4 +13,5 @@ Welcome, Transformers List
 
 **Screenshots**
 
-![ekran1].(welcome.png)
+![ekran1].(https://raw.githubusercontent.com/silvahaberl/Transformers/master/welcome.png)
+![ekran2].
