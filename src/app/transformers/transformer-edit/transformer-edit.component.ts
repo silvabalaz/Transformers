@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Trans, VehicleTypes} from '../transformer';
+import {Faction, Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -17,6 +17,8 @@ export class TransformerEditComponent implements OnInit {
   transformer: Trans | null;
   vehicleTypes: VehicleTypes[];
   vehicleTypesChanged: VehicleTypes[];
+  factions: Faction[];
+  create: boolean;
   sub: Subscription;
 
   constructor(private fb: FormBuilder,
@@ -33,14 +35,30 @@ export class TransformerEditComponent implements OnInit {
       vehicleType: [{value: '', disabled: true}, Validators.required],
       vehicleModel: [{value: '', disabled: true}, Validators.required],
       gear: [''],
-      status: ['', Validators.required]
+      status: ['', Validators.required],
+      faction: [{value: '', disabled: true}, Validators.required]
     });
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
       selectedTransformer => this.displayTransformer(selectedTransformer)
     );
     this.vehicleTypes = this.getVehicleTypes();
     this.vehicleTypesChanged = this.vehicleTypes;
-    this.getTransformer();
+    this.factions = this.getFactions();
+    if (this.transformer) {
+      if (this.transformer.name !== 'New') {
+      this.getTransformer();
+    }
+    } else {
+      this.getTransformer();
+    }
+  }
+
+  checkFaction(val: any): void {
+    const faction = val.target.options[val.target.options.selectedIndex].text;
+    const filteredItem = this.factions.filter(items => items.name === faction);
+    console.log('filteredItem[0].name' + filteredItem[0].name);
+    this.transformer.faction = filteredItem[0].name;
+    this.displayTransformer(this.transformer);
   }
 
   changeByGroup(val: any): void {
@@ -114,6 +132,18 @@ export class TransformerEditComponent implements OnInit {
   ];
     }
 
+  getFactions(): Faction[] {
+    return [
+      {
+        id: 0,
+        name: 'Autobots'
+      }, {
+        id: 1,
+        name: 'Decepticons'
+      }
+    ];
+  }
+
   onBack(): void {
     this.router.navigate(['/transformers']);
   }
@@ -127,6 +157,7 @@ export class TransformerEditComponent implements OnInit {
     if (this.transformer) {
       if (this.transformer.name === 'New') {
         this.pageTitle = 'Add Transformer';
+        this.create = true;
       } else {
         this.pageTitle = `Edit Transformer: ${this.transformer.name}`;
       }
@@ -136,7 +167,8 @@ export class TransformerEditComponent implements OnInit {
         vehicleType: this.transformer.vehicleType,
         vehicleModel: this.transformer.vehicleModel,
         gear: this.transformer.gear,
-        status: this.transformer.status
+        status: this.transformer.status,
+        faction: this.transformer.faction
       });
     }
   }
@@ -149,7 +181,7 @@ export class TransformerEditComponent implements OnInit {
     if (this.transformerForm.valid) {
       if (this.transformerForm.dirty) {
         const p = {...this.transformer, ...this.transformerForm.value};
-        if (p.id === 0) {
+        if (this.create === true) {
           this.transformerService.createTransformer(p).subscribe(
             transformer => this.transformerService.changeSelectedTransformer(transformer),
             (err: any) => this.errorMessage = err.error

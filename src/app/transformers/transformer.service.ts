@@ -57,10 +57,11 @@ export class TransformerService {
       );
   }
   // Return an initialized transformer
-  newTransformer(): Trans {
+  newTransformer(id: number): Trans {
     console.log('newTransformer');
+    const idNumber = id;
     return {
-      id: 0,
+      id: idNumber,
       name: 'New',
       vehicleGroup: '',
       vehicleType: '',

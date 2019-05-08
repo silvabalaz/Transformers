@@ -6,6 +6,7 @@ export interface Trans {
   vehicleModel?: string;
   gear?: string[];
   status?: string;
+  faction?: string;
 }
 
 export interface VehicleTypes {
@@ -14,3 +15,7 @@ export interface VehicleTypes {
   model?: string;
 }
 
+export interface Faction {
+  id?: number;
+  name?: string;
+}

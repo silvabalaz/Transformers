@@ -9,8 +9,12 @@
            type="text"
            placeholder="Search By Name"
            (keyup) ="onChanges($event)"/>
+    <label id="factions" >Filter by faction...</label>
+    <select class="form-control" name="factions" formControlName = "factions" (change)="checkFaction($event)">
+      <option *ngFor="let item of factions"  [value]="item.name" >{{ item.name }}</option>
+    </select>
       <button class="list-group-item list-group-item-action rounded-0"
-              *ngFor="let transformer of transformers | searchpipe:searchTerm"
+              *ngFor="let transformer of transformers | searchpipe:searchTerm "
               [routerLink]="['/transformers', transformer.id]">
               {{ transformer.name}}
       </button>
@@ -22,7 +26,7 @@
       <div class="form-check col-md-7">
       </div>
       <div class="col-md-4 text-right">
-        <button class="btn btn-primary" (click)="newTransformer()">
+        <button class="btn btn-primary" [routerLink]="['/transformers', transformers?.length]" (click)="newTransformer(transformers?.length)">
           Add
         </button>
       </div>

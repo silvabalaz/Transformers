@@ -11,8 +11,7 @@ import {CommonModule} from '@angular/common';
 
 const transformerRoutes: Routes = [
   { path: '', component: TransformerShellComponent },
-  { path: ':id', component: TransformerEditComponent },
-  { path: 'new', component: TransformerEditComponent }
+  { path: ':id', component: TransformerEditComponent }
 ];
 
 @NgModule({
