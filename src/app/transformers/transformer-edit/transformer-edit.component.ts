@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Pipe} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Faction, Trans, VehicleTypes} from '../transformer';
 import {TransformerService} from '../transformer.service';

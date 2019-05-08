@@ -8,6 +8,7 @@ import {SearchPipe} from './select.pipes/SearchPipe';
 import {FilterPipe} from './select.pipes/FilterPipe';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {RemovePipe} from './select.pipes/RemovePipe';
 
 const transformerRoutes: Routes = [
   { path: '', component: TransformerShellComponent },
@@ -21,6 +22,7 @@ const transformerRoutes: Routes = [
     CommonModule
   ],
   declarations: [
+    RemovePipe,
     FilterPipe,
     SearchPipe,
     TransformerShellComponent,
@@ -29,6 +31,7 @@ const transformerRoutes: Routes = [
     TransformerEditComponent
   ],
   exports: [
+    RemovePipe,
     FilterPipe,
     SearchPipe
   ]

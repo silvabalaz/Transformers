@@ -22,7 +22,7 @@
           <label class="col-md-3 col-form-label">Vehicle Group</label>
           <div class="col-md-4">
             <select class="form-control" formControlName="vehicleGroup" name="vehicleTypesGroup" (change)="changeByGroup($event)" >
-              <option *ngFor="let item of vehicleTypes" [value]="item.group" >{{ item.group}}</option>
+              <option *ngFor="let item of vehicleTypes " [value]="item.group" >{{ item.group}}</option>
             </select>
           </div>
           <div class="col-md-5">
