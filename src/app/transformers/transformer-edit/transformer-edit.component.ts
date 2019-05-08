@@ -38,6 +38,7 @@ export class TransformerEditComponent implements OnInit {
       status: ['', Validators.required],
       faction: [{value: '', disabled: true}, Validators.required]
     });
+    this.transformerForm .getRawValue();
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
       selectedTransformer => this.displayTransformer(selectedTransformer)
     );
