@@ -31,14 +31,13 @@ export class TransformerEditComponent implements OnInit {
   ngOnInit(): void {
     this.transformerForm = this.fb.group({
       name: ['', Validators.required],
-      vehicleGroup: [{value: '', disabled: true}, Validators.required],
+      vehicleGroup: [Validators.required],
       vehicleType: [{value: '', disabled: true}, Validators.required],
       vehicleModel: [{value: '', disabled: true}, Validators.required],
       gear: [''],
       status: ['', Validators.required],
-      faction: [{value: '', disabled: true}, Validators.required]
+      faction: [Validators.required]
     });
-    this.transformerForm .getRawValue();
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
       selectedTransformer => this.displayTransformer(selectedTransformer)
     );
@@ -57,7 +56,7 @@ export class TransformerEditComponent implements OnInit {
   checkFaction(val: any): void {
     const faction = val.target.options[val.target.options.selectedIndex].text;
     const filteredItem = this.factions.filter(items => items.name === faction);
-    console.log('filteredItem[0].name' + filteredItem[0].name);
+    console.log('filteredItem[0].name u check factinu' + filteredItem[0].name + filteredItem.values());
     this.transformer.faction = filteredItem[0].name;
     this.displayTransformer(this.transformer);
   }
@@ -71,6 +70,7 @@ export class TransformerEditComponent implements OnInit {
     this.vehicleTypesChanged = filteredGroup;
     this.transformer.vehicleGroup = filterBy;
     this.transformer.vehicleType = '';
+    this.transformerForm.get('vehicleType').enable();
     this.transformer.vehicleModel = '';
     this.displayTransformer(this.transformer);
     console.log(this.vehicleTypesChanged.values());
@@ -81,6 +81,7 @@ export class TransformerEditComponent implements OnInit {
     console.log('filteredType' + filteredType);
     this.vehicleTypesChanged = this.vehicleTypesChanged.filter(items => items.type === filterBy);
     this.transformer.vehicleType = filterBy;
+    this.transformerForm.get('vehicleModel').enable();
     this.displayTransformer(this.transformer);
     console.log(this.vehicleTypesChanged.values());
   }
@@ -180,7 +181,7 @@ export class TransformerEditComponent implements OnInit {
 
   saveTransformer(): void {
     if (this.transformerForm.valid) {
-      if (this.transformerForm.dirty) {
+      if (this.transformerForm.touched) {
         const p = {...this.transformer, ...this.transformerForm.value};
         if (this.create === true) {
           this.transformerService.createTransformer(p).subscribe(
