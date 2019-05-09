@@ -19,19 +19,21 @@ It is also possible to search the transformer by name.
 ### Transformer Add/Edit
 
 Similar logic is needed to add a new transformer or change the existing one. So I decided to use one component that depending on whether the property **create** *true* or *false* will call the *createTransformer* or *updateTransformer* method on action *Save*.The form name is determined in the *displayTransformer* method, depending on the name of Transformer. If a new transformer is created, its name is *New* which can be modified and saved.
-              displayTransformer(transformer: Trans): void {
+             
+             
+             displayTransformer(transformer: Trans): void 
                   // Set the local transformer property
                   this.transformer = transformer;
                   // Reset the form back to pristine
                   this.transformerForm.reset();
                   // Display the appropriate page title
                   if (this.transformer) {
-                   **if (this.transformer.name === 'New') {
+                    if (this.transformer.name === 'New') {
                       this.pageTitle = 'Add Transformer';
                       this.create = true;
                     } else {
                       this.pageTitle = `Edit Transformer: ${this.transformer.name}`;
-                    }**
+                    }
                     this.transformerForm.patchValue({
                       name: this.transformer.name,
                       vehicleGroup: this.transformer.vehicleGroup,
