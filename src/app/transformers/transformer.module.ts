@@ -3,12 +3,10 @@ import {TransformerEditComponent} from './transformer-edit/transformer-edit.comp
 import {NgModule} from '@angular/core';
 import {TransformerListComponent} from './transformer-list/transformer-list.component';
 import {TransformerShellComponent} from './transformer-shell/transformer-shell.component';
-import {TransformerAddComponent} from './transformer-add/transformer-add.component';
 import {SearchPipe} from './select.pipes/SearchPipe';
 import {FilterPipe} from './select.pipes/FilterPipe';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {RemovePipe} from './select.pipes/RemovePipe';
 
 const transformerRoutes: Routes = [
   { path: '', component: TransformerShellComponent },
@@ -22,16 +20,13 @@ const transformerRoutes: Routes = [
     CommonModule
   ],
   declarations: [
-    RemovePipe,
     FilterPipe,
     SearchPipe,
     TransformerShellComponent,
     TransformerListComponent,
-    TransformerAddComponent,
     TransformerEditComponent
   ],
   exports: [
-    RemovePipe,
     FilterPipe,
     SearchPipe
   ]

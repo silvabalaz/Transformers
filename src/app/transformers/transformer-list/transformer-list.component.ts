@@ -24,9 +24,7 @@ export class TransformerListComponent implements OnInit, OnDestroy {
   sub: Subscription;
 
   constructor(private fb: FormBuilder,
-              private transformerService: TransformerService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+              private transformerService: TransformerService) { }
 
   ngOnInit(): void {
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
@@ -42,7 +40,6 @@ export class TransformerListComponent implements OnInit, OnDestroy {
       factions: ['']
     });
     this.factions = this.getFactions();
-    console.log('getFactions in list' + this.getFactions());
   }
 
   onChanges(val: any): void {
@@ -61,8 +58,6 @@ export class TransformerListComponent implements OnInit, OnDestroy {
   }
   checkFaction(val: any): void {
     this.faction = val.target.value;
-    // this.transformers.filter(item => item.faction === this.faction)
-    console.log('this.faction i checkFaction' + this.faction);
   }
   ngOnDestroy(): void {
     console.log('OnDestroy transformer-list component');

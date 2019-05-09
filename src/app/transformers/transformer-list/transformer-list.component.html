@@ -9,7 +9,8 @@
            type="text"
            placeholder="Search By Name"
            (keyup) ="onChanges($event)"/>
-    <label id="factions" >Filter by faction...</label>
+    <label id="factionsEmpty" > </label>
+    <label id="factions" >Filter by faction: </label>
     <select class="form-control" name="factions" formControlName = "factions" (change)="checkFaction($event)">
       <option *ngFor="let item of factions"  [value]="item.name" >{{ item.name }}</option>
     </select>

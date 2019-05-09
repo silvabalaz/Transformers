@@ -91,16 +91,6 @@ export class TransformerEditComponent implements OnInit {
     this.displayTransformer(this.transformer);
     console.log(this.vehicleTypesChanged.values());
   }
-  removeDuplicates(duplicates: VehicleTypes[], filtered: VehicleTypes[]): void {
-      for (const element1 of duplicates) {
-        for (const element2 of filtered) {
-          if (element1.group === element2.group) {
-            filtered.splice(filtered.indexOf(element2), 1);
-            break;
-          }
-        }
-      }
-  }
   getTransformer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.transformerService.getTransformer(id)
