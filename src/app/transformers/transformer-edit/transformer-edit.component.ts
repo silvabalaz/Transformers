@@ -56,17 +56,13 @@ export class TransformerEditComponent implements OnInit {
   checkFaction(val: any): void {
     const faction = val.target.options[val.target.options.selectedIndex].text;
     const filteredItem = this.factions.filter(items => items.name === faction);
-    console.log('filteredItem[0].name u check factinu' + filteredItem[0].name + filteredItem.values());
     this.transformer.faction = filteredItem[0].name;
     this.displayTransformer(this.transformer);
   }
 
   changeByGroup(val: any): void {
-    console.log('val.target.options' + val.target.options );
-    console.log('val.target.options[]' +  val.target.options[val.target.options.selectedIndex].text);
     const filterBy = val.target.options[val.target.options.selectedIndex].text;
     const filteredGroup = this.vehicleTypes.filter(items => items.group === filterBy);
-    // this.removeDuplicates(this.vehicleTypes, this.filtered);
     this.vehicleTypesChanged = filteredGroup;
     this.transformer.vehicleGroup = filterBy;
     this.transformer.vehicleType = '';

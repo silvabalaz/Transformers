@@ -9,9 +9,6 @@ export class FilterPipe implements PipeTransform {
     if (!transformers || !faction) {
       return transformers;
     }
-    console.log('faction' + faction);
-    console.log('transformers[0].faction' + transformers[0].faction);
-    console.log('transformers[0].faction === faction' + transformers[0].faction === faction);
     return transformers.filter(items => items.faction === faction);
   }
 }
