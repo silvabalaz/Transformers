@@ -69,7 +69,10 @@ The **change** event notifies component about a change happening in an option fi
             <option *ngFor="let item of vehicleTypes " [value]="item.group" >{{item.group}}</option>
           </select>
                             ........................................
-                            
+**API**    
+
+During programming, I used *InMemoryDataService*. First, I needed to install the angular-in-memory-web-module from npm in my Angular project. Next, I wired the in-memory web api module with my application and provided the data service as a parameter for the .forRoot method of the InMemoryWebApiModule module.
+**/src/transformers/transformer-data.ts** contains created service.
 
 
 **Screenshots**
