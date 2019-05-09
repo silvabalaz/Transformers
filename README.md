@@ -75,4 +75,5 @@ The **change** event notifies component about a change happening in an option fi
 **Screenshots**
 
 ![ekran1].(https://raw.githubusercontent.com/silvahaberl/Transformers/master/welcome.png)
-![ekran2].(https://raw.githubusercontent.com/silvahaberl/Transformers/master/transformerlist.png)
+![listrans](https://user-images.githubusercontent.com/6881169/57423339-e72de300-7213-11e9-8168-257bb8398033.png)
+
