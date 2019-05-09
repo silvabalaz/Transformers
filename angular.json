@@ -112,7 +112,8 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Transformers:serve"
+            "devServerTarget": "Transformers:serve",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {

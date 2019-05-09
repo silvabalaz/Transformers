@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://my-json-server.typicode.com/DyslexicDcuk/transformers-api",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

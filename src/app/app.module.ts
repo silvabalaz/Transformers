@@ -26,7 +26,7 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(TransformerData),
+    // HttpClientInMemoryWebApiModule.forRoot(TransformerData),
   ],
   providers: [],
   bootstrap: [AppComponent]

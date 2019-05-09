@@ -6,7 +6,7 @@ export class TransformerData implements InMemoryDbService {
 
   createDb() {
     const transformers: Trans[] = [
-      {
+      /*{
         id: 0,
         name: 'Optimus Prime',
         vehicleGroup: 'Land',
@@ -32,7 +32,7 @@ export class TransformerData implements InMemoryDbService {
         vehicleModel: 'Sukhoi',
         gear: ['canon'],
         status: 'MIA'
-      }
+      }*/
     ];
     return {transformers};
 

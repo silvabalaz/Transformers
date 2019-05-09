@@ -11,8 +11,8 @@ import {map} from 'rxjs/operators';
   providedIn: 'root',
 })
 export class TransformerService {
-  private transformersUrl = '/api/transformers';
-  private vehicleTypesUrl = '/api/vehicleTypes';
+  private transformersUrl = '/transformers';
+  private vehicleTypesUrl = '/vehicleTypes';
   private transformers: Trans[];
   private transformer: Trans;
   private vehicleTypes: VehicleTypes[];
