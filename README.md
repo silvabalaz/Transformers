@@ -16,7 +16,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Includes a list of all transformers. You can create a new one, and for filtering it is necessary to determine each of its faction properties.
 It is also possible to search the transformer by name.
 
-I use Pipes for searching and filtering in html. I decided for Pipes because it was easy to use the Pipes in loops for all the transformers. And the logic for each operation should be extracted into a separate file (I already use a lot of filters in components for other functionalities). In my case *SearchPipe.ts* and *FilterPipe.ts
+I use Pipes for searching and filtering in html. I decided for Pipes because it was easy to use the Pipes in loops for all the transformers. And the logic for each operation should be extracted into a separate file (I already use a lot of filters in components for other functionalities). In my case *SearchPipe.ts* and *FilterPipe.ts* .
 
   
   
@@ -74,6 +74,21 @@ The **change** event notifies component about a change happening in an option fi
 During programming, I used *InMemoryDataService*. First, I needed to install the angular-in-memory-web-module from npm in my Angular project. Next, I wired the in-memory web api module with my application and provided the data service as a parameter for the .forRoot method of the InMemoryWebApiModule module.
 **/src/transformers/transformer-data.ts** contains created service.
 
+**Set up dev server proxy**
+To use the backed server API, like JsonPlaceholder, I had to use a proxy. To use proxy had to add new proxy.conf.json and do some changes in package.json.
+
+                    {
+                      "/api/*": {
+                        "target": "https://my-json-server.typicode.com/DyslexicDcuk/transformers-api",
+                        "secure": false,
+                        "logLevel": "debug",
+                        "changeOrigin": true,
+                        "pathRewrite": {"^/api" : "https://my-json-server.typicode.com/DyslexicDcuk/transformers-api"}
+                      }
+                    }
+
+**Design decisions**
+I made an introductory page  'welcome' on which I took the picture of a transformer in Gimp with the background of the cloud. The Google font I use associates me with robots. The blue color for adding and editing a single transformer was better than the black one.Both colors remind me of male theme like Transformers. Any addition more, it would be too much, in my mind.
 
 **Screenshots**
 
