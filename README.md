@@ -30,6 +30,7 @@ I use Pipes for searching and filtering in html. I decided for Pipes because it 
                         }
                       }
 
+To filter Transformers by faction you have to set faction option for every transformer you want to include in filter, before you filter.
 
 ### Transformer Add/Edit
 
