@@ -41,9 +41,9 @@ export class TransformerEditComponent implements OnInit {
     this.sub = this.transformerService.selectedTransformerChanges$.subscribe(
       selectedTransformer => this.displayTransformer(selectedTransformer)
     );
-    this.vehicleTypes = this.getVehicleTypes();
+    this.getVehicleTypes();
     this.vehicleTypesChanged = this.vehicleTypes;
-    this.factions = this.getFactions();
+    this.getFactions();
     if (this.transformer) {
       if (this.transformer.name !== 'New') {
       this.getTransformer();
@@ -95,7 +95,13 @@ export class TransformerEditComponent implements OnInit {
             this.displayTransformer(this.transformer);
        });
   }
-  getVehicleTypes(): VehicleTypes[] {
+  getVehicleTypes(): void {
+    this.transformerService.getVehicleTypes()
+      .subscribe(types => {
+        this.vehicleTypes = types;
+      });
+  }
+  /*getVehicleTypes(): VehicleTypes[] {
     return [
       {
         group: 'Air',
@@ -118,9 +124,15 @@ export class TransformerEditComponent implements OnInit {
       model: 'Western Star 5700'
     }
   ];
-    }
+    }*/
+  getFactions(): void {
+    this.transformerService.getFactions()
+      .subscribe(factions => {
+        this.factions = factions;
+      });
+  }
 
-  getFactions(): Faction[] {
+ /* getFactions(): Faction[] {
     return [
       {
         id: 0,
@@ -130,7 +142,7 @@ export class TransformerEditComponent implements OnInit {
         name: 'Decepticons'
       }
     ];
-  }
+  }*/
 
   onBack(): void {
     this.router.navigate(['/transformers']);

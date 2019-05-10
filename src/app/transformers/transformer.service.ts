@@ -4,18 +4,20 @@ import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {tap} from 'rxjs/internal/operators/tap';
 import {catchError} from 'rxjs/internal/operators/catchError';
 import {of} from 'rxjs/internal/observable/of';
-import {Trans, VehicleTypes} from './transformer';
+import {Faction, Trans, VehicleTypes} from './transformer';
 import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransformerService {
-  private transformersUrl = '/transformers';
-  private vehicleTypesUrl = '/vehicleTypes';
+  private transformersUrl = '/api/transformers';
+  private vehicleTypesUrl = '/api/vehicleTypes';
+  private factionsUrl = '/api/factions';
   private transformers: Trans[];
   private transformer: Trans;
   private vehicleTypes: VehicleTypes[];
+  private factions: Faction[];
   private selectedTransformerSource = new BehaviorSubject<Trans| null>(null);
   selectedTransformerChanges$ = this.selectedTransformerSource.asObservable();
 
@@ -53,6 +55,17 @@ export class TransformerService {
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
         tap(data => this.vehicleTypes = data),
+        catchError(this.handleError)
+      );
+  }
+  getFactions(): Observable<Faction[]> {
+    if (this.factions) {
+      return of(this.factions);
+    }
+    return this.http.get<Faction[]>(this.factionsUrl)
+      .pipe(
+        tap(data => console.log(JSON.stringify(data))),
+        tap(data => this.factions = data),
         catchError(this.handleError)
       );
   }
