@@ -75,6 +75,7 @@ During programming, I used *InMemoryDataService*. First, I needed to install the
 **/src/transformers/transformer-data.ts** contains created service.
 
 **Set up dev server proxy**
+
 To use the backed server API, like JsonPlaceholder, I had to use a proxy. To use proxy had to add new proxy.conf.json and do some changes in package.json.
 
                     {
@@ -88,6 +89,7 @@ To use the backed server API, like JsonPlaceholder, I had to use a proxy. To use
                     }
 
 **Design decisions**
+
 I made an introductory page  'welcome' on which I took the picture of a transformer in Gimp with the background of the cloud. The Google font I use associates me with robots. The blue color for adding and editing a single transformer was better than the black one.Both colors remind me of male theme like Transformers. Any addition more, it would be too much, in my mind.
 
 **Screenshots**
